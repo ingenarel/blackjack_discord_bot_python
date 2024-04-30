@@ -54,27 +54,20 @@ def card_checker(i):
              }
     i = i.strip().split(" ")            # removes whitespaces from left and right and then splits the given string based on whitespaces.
     x = {}                              # makes an empty dictionary called x
-        
     for card in i:
         try:
             card_suit, card_value = card.strip().split("-")
-            for value in values:
-                if card_value in values[value]:
-                    card_value = int(card_value)
-            for suit in suits:
-                if card_suit in suits[suit] and card_value in values:
-                    if suit in x:          
-                        x[suit] += 1       
-                    else:                   
-                        x[suit] = 1
         except ValueError:
-            for suit in suits:
-                if card in suits[suit]:
-                    if suit in x:          
-                        x[suit] += 1       
-                    else:                   
-                        x[suit] = 1
-    return x
+            card_suit = card
+        check_item(suits, card)
+        
+def check_item(dict, i):
+    i = i.strip()
+    for key in dict:
+        if i in dict[key]:       
+            exists = True     
+    if exists == True:    
+        return exists
 
 def main():
     print(card_checker(input("what ")))
