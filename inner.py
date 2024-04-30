@@ -1,5 +1,6 @@
 def card_checker(i):
-    suits = {"c": ["c", "club", "clbu", "clib", 
+    suits = {
+            "c": ["c", "club", "clbu", "clib", 
                 "ckub", "clu", "cllub", "vlub", 
                 "ciub", "xlub", "cpub", "cluh", 
                 "cliv", "clun", "clubb", "clubs", 
@@ -28,22 +29,39 @@ def card_checker(i):
                 "soades",
                 ],
             }
-    x = 0
-    i = i.split(" ")
-    for card in i:
-        for types in suits:
-            if card in suits[types]:
-                x += 1
-            else:
-                x += 0
-
-    if x == 1:
-        return "yes"
-    elif x == 0:
-        return "no"
-    elif x > 1:
-        return "multiple"
-    else:
-        print("error")
+    values = {
+             1 : ["1", "one",
+                 ],
+             2 : ["2", "two",
+                 ],
+             3 : ["3", "three",
+                 ],
+             4 : ["4", "four",
+                 ],
+             5 : ["5", "five",
+                 ],
+             6 : ["6", "six",
+                 ],
+             7 : ["7", "seven",
+                 ],
+             8 : ["8", "eight",
+                 ],
+             9 : ["9", "nine",
+                 ],
+             10: ["10", "ten", "king", "queen", "joker",
+                 ],
+             }
+    i = i.strip().split(" ")            # removes whitespaces from left and right and then splits the given string based on whitespaces.
+    x = {}                              # makes an empty dictionary called x
+    
+    for card in i:                      # for every card in the splitted given string,
+        for types in suits:             # it goes over every types of suits. c, d, h and s
+            if card in suits[types]:    # and if the card is in in the the list of words in a suit, does the following stuff:
+                if types in x:          # if a type of card already exists in the empty dictionary called x
+                    x[types] += 1       # it adds a plus one value to it
+                else:                   # and if the card doesn't exist on the x dictionary yet,
+                    x[types] = 1        # it enters it in the dictionary, and sets the value to 1
+    
+    return x
 
 print(card_checker(input("what ")))
