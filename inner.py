@@ -28,82 +28,56 @@ def card_checker(i):
                 "spaed", "spadea", "spadse", "spadew", 
                 "soades",
                 ],
-            }                           # 
+            }                            
     values = {
-             1 : ["1", "one", "ace",
+             "1" : ["1", "one", "ace",
                  ],
-             2 : ["2", "two",
+             "2" : ["2", "two",
                  ],
-             3 : ["3", "three",
+             "3" : ["3", "three",
                  ],
-             4 : ["4", "four",
+             "4" : ["4", "four",
                  ],
-             5 : ["5", "five",
+             "5" : ["5", "five",
                  ],
-             6 : ["6", "six",
+             "6" : ["6", "six",
                  ],
-             7 : ["7", "seven",
+             "7" : ["7", "seven",
                  ],
-             8 : ["8", "eight",
+             "8" : ["8", "eight",
                  ],
-             9 : ["9", "nine",
+             "9" : ["9", "nine",
                  ],
-             10: ["10", "ten", "king", "queen", 
+             "10": ["10", "ten", "king", "queen", 
                   "joker",
                  ],
              }
     i = i.strip().split(" ")            # removes whitespaces from left and right and then splits the given string based on whitespaces.
     x = {}                              # makes an empty dictionary called x
-    
-    # for card in i:                      # for every card in the splitted given string,
-    #     for types in suits:             # it goes over every types of suits. c, d, h and s
-    #         if card in suits[types]:    # and if the card is in in the the list of words in a suit, does the following stuff:
-    #             if types in x:          # if a type of card already exists in the empty dictionary called x
-    #                 x[types] += 1       # it adds a plus one value to it
-    #             else:                   # and if the card doesn't exist on the x dictionary yet,
-    #                 x[types] = 1        # it enters it in the dictionary, and sets the value to 1
-    
-    for card in i:                      
-        for types in suits:             
-            for value in values:
-                if card in suits[types] and values[value] in card:
-                    if types in x:          
-                        x[types] += 1       
-                    else:                   
-                        x[types] = 1        
         
+    for card in i:
+        try:
+            card_suit, card_value = card.strip().split("-")
+            for value in values:
+                if card_value in values[value]:
+                    card_value = int(card_value)
+            for suit in suits:
+                if card_suit in suits[suit] and card_value in values:
+                    if suit in x:          
+                        x[suit] += 1       
+                    else:                   
+                        x[suit] = 1
+        except ValueError:
+            for suit in suits:
+                if card in suits[suit]:
+                    if suit in x:          
+                        x[suit] += 1       
+                    else:                   
+                        x[suit] = 1
     return x
 
 def main():
-    # print(card_checker(input("what ")))
-    values = {
-             1 : ["1", "one", "ace",
-                 ],
-             2 : ["2", "two",
-                 ],
-             3 : ["3", "three",
-                 ],
-             4 : ["4", "four",
-                 ],
-             5 : ["5", "five",
-                 ],
-             6 : ["6", "six",
-                 ],
-             7 : ["7", "seven",
-                 ],
-             8 : ["8", "eight",
-                 ],
-             9 : ["9", "nine",
-                 ],
-             10: ["10", "ten", "king", "queen", 
-                  "joker",
-                 ],
-             }
-    i = input()
-    if values in i:
-        print("yes")
-    else:
-        print("no")
+    print(card_checker(input("what ")))
 
 if __name__ == "__main__":
     main()
