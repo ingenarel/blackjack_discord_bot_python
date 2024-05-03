@@ -54,16 +54,21 @@ def cards():
                 }
     return suits, values
 
-# def suits():
-#     x = []
-#     for suit_types in cards()[0]:
-#         for suit in suit_types:
-#             x += (cards()[0][suit_types])
-#     return x
+def all_suits_list():
+    x = []
+    for suit_types in cards()[0]:
+        for _ in suit_types:
+            x += (cards()[0][suit_types])
+    return x
 
-# def values():
-#     x = 
+def all_values_list():
+    x = []
+    for value_types in cards()[1]:
+        for _ in value_types:
+            x += (cards()[1][value_types])
+    return x
 
 if __name__ == "__main__":
-    print(f"executing cards():\n{cards()}\n")
-    print(f"executing suits():\n{suits()}\n")
+    # print(f"executing cards():\n{cards()}\n")
+    # print(f"executing all_suits_list():\n{all_suits_list()}\n")
+    print(f"executing all_values_list():\n{all_values_list()}\n")
