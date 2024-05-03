@@ -39,10 +39,11 @@ def check_stuff(dict_that_has_lists_as_values, value_thats_in_list):
 def counter(dict):
     x = 0
     for key in dict:
-        if dict[key] in ["king", "queen", "joker"]:
-            x += 10
-        else:
-            x += int(dict[key])
+        for value in dict[key]:
+            if value in ["king", "queen", "joker"]:
+                x += 10
+            else:
+                x += int(value)
     if x < 21:
         return "win"
     elif x == 21:
@@ -68,16 +69,19 @@ def dealer_cards():
     total_score = 0
     while total_score < 18:
         score, suit, value = hit()
-        x[suit] = value
+        if suit not in x:
+            x[suit] = []
+        x[suit].append(value)
         total_score += score
-    if total_score < 18:
-        score, suit, value = hit()
-        x[suit] = value
 
     return x
 
+# def player_card():
+
+
 if __name__ == "__main__":
     for _ in range(100):
-        print(dealer_cards())
-        print(counter(dealer_cards()))
+        x = dealer_cards()
+        print(x)
+        print(counter(x))
 
