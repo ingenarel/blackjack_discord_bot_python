@@ -1,4 +1,5 @@
-import random, card_database as cdb
+from random import choice
+import card_database as cdb
 
 
 def card_checker(i):
@@ -53,7 +54,8 @@ def counter(dict):
 
 
 def random_card_picker():
-    return random.choice(cdb.all_suits_list()), random.choice(cdb.all_cards_list())
+    return choice(cdb.all_suits_list()), choice(cdb.all_cards_list())
+
 
 def hit():
     score = 0
@@ -64,10 +66,11 @@ def hit():
         score += int(value)
     return score, suit, value
 
+
 def dealer_cards():
     x = {}
     total_score = 0
-    while total_score < 18:
+    while total_score < 17:
         score, suit, value = hit()
         if suit not in x:
             x[suit] = []
@@ -76,12 +79,23 @@ def dealer_cards():
 
     return x
 
-# def player_card():
+
+def player_card():
+    x = {}
+    times = 0
+    while times < 2:
+        _, suit, value = hit()
+        if suit not in x:
+            x[suit] = []
+        x[suit].append(value)
+        times += 1
+
+    return x
 
 
 if __name__ == "__main__":
     for _ in range(100):
-        x = dealer_cards()
-        print(x)
-        print(counter(x))
-
+        # x = dealer_cards()
+        y = player_card()
+        print(y)
+        # print(counter(x))
