@@ -1,33 +1,31 @@
 import card_database as cdb
 
 def card_checker(i):
-    suit_list = cdb.all_suits_list()
-    values_list = cdb.all_values_list()
     get_suit_names, get_value_names = cdb.cards()
-    i = i.strip().split(" ")            # removes whitespaces from left and right and then splits the given string based on whitespaces.
-    x = {}                              # makes an empty dictionary called x
+    i = i.strip().split(" ")           
+    x = {}                  
     for card in i:
         try:
-            for suits in get_suit_names:
-                for suit in get_suit_names[suits]:
-                    if i == suit:
-                        
-                    # else:
-                    #     print("no")
-                
-        except ValueError:
-            card_suit = card
-            if card_suit in suit_list:
-
-                return "yes-ValueWasNotGiven"
+            s, v = card.split("-")
+            suit_name = check_stuff(get_suit_names, s)
+            value_name = int(check_stuff(get_value_names, v))
+            if suit_name in x:
+                x[suit_name] += value_name
             else:
-                return "no-ValueWasNotGiven"
-                # pass
-            
-def check_item(list, i):
-    i = i.strip()
-    if i in list:       
-        return True
+                 x[suit_name] = value_name
+        except ValueError:
+            s = card
+            suit_name = check_stuff(get_suit_names, s)
+            if suit_name in x:
+                x[suit_name] += 1
+            else:
+                 x[suit_name] = 1
+    return x
+def check_stuff(dict_that_has_lists_as_values, value_thats_in_list):
+    for dict_keys in dict_that_has_lists_as_values:
+        for dict_value in dict_that_has_lists_as_values[dict_keys]:
+            if value_thats_in_list == dict_value:
+                return dict_keys
 
 def main():
     print(card_checker(input("what ")))
